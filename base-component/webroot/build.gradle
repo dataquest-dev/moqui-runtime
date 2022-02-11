@@ -313,7 +313,9 @@ class MinifyFiles extends JsMinifyTask {
 }
 
 class ConcatFiles extends DefaultTask {
+    @Input
     String encoding
+    @Input
     String baseDir
     @InputFiles
     ArrayList<String> source
