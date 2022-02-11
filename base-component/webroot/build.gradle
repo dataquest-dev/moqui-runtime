@@ -208,17 +208,13 @@ vuetJs.add(webrootPath + '/js/WebrootVue.min.js')
 
 String buildDirectory = "${webrootPath}/js/_build"
 
-task minifySelect2(type: MinifyFiles) {
+task minifySelect2() {
     def src = file("${webrootPath}/js/select2/select2.js")
-    source = file(buildDirectory)
-    dest = file("${webrootPath}/js")
     copyFilesBeforeBuild(src, buildDirectory)
     /*closure { compilerOptions.setOutputCharset(StandardCharsets.UTF_8) }*/
 }
-task minifyDateTimePicker(type: MinifyFiles) {
+task minifyDateTimePicker() {
     def src = file("${webrootPath}/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js")
-    source = file(buildDirectory)
-    dest = file("${webrootPath}/js")
     copyFilesBeforeBuild(src, buildDirectory)
     /*closure { compilerOptions.setOutputCharset(StandardCharsets.UTF_8) }*/
 }
@@ -229,10 +225,8 @@ task minifyQzTray(type: com.eriwen.gradle.js.tasks.MinifyJsTask) {
     closure { compilerOptions.setOutputCharset(StandardCharsets.UTF_8); warningLevel = 'QUIET' }
 }
 */
-task minifyMoquiLib(type: MinifyFiles) {
+task minifyMoquiLib() {
     def src = file("${webrootPath}/js/MoquiLib.js")
-    source = file(buildDirectory)
-    dest = file("${webrootPath}/js")
     copyFilesBeforeBuild(src, buildDirectory)
     /*closure { compilerOptions.setOutputCharset(StandardCharsets.UTF_8) }*/
 }
@@ -259,10 +253,8 @@ task minifyCombinedBase(type: com.eriwen.gradle.js.tasks.MinifyJsTask) {
 }
 */
 
-task minifyWebrootVue(type: MinifyFiles) {
+task minifyWebrootVue() {
     def src = file("${webrootPath}/js/WebrootVue.js")
-    source = file(buildDirectory)
-    dest = file("${webrootPath}/js")
     copyFilesBeforeBuild(src, buildDirectory)
     /*closure {
         compilerOptions.languageIn="ECMASCRIPT6"
@@ -279,12 +271,15 @@ task combineVuetJs(type: ConcatFiles) {
     baseDir = buildDir.parent
 }
 
-task minifyWebrootVueQvt(type: MinifyFiles) {
+task minifyWebrootVueQvt() {
     def src = file("${webrootPath}/js/WebrootVue.qvt.js")
-    source = file(buildDirectory)
-    dest = file("${webrootPath}/js")
     copyFilesBeforeBuild(src, buildDirectory)
     /*closure { compilerOptions.setOutputCharset(StandardCharsets.UTF_8) }*/
+}
+
+task minifyAll(type: MinifyFiles){
+    source = file(buildDirectory)
+    dest = file("${webrootPath}/js")
 }
 
 task clean { doLast { delete fileTree(dir: "${webrootPath}/js", include: '*.min.js') }}
@@ -294,11 +289,11 @@ task build {
     // issues seen with this on Windows, disabling for now: dependsOn minifyCombinedBase
     dependsOn combineVuetJs
     dependsOn minifyWebrootVueQvt
+    dependsOn minifyAll
 }
 task cleanAll { doLast {
     delete file(libsPath)
 } }
-
 
 void copyFilesBeforeBuild(File source, String to) {
     def copyTo = Paths.get("${buildDir.parent}/${to}/${source.name}")
