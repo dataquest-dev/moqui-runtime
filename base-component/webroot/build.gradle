@@ -26,15 +26,12 @@ buildscript {
     dependencies { classpath 'com.github.ben-manes:gradle-versions-plugin:0.28.0' }
 }
 
-/* gradle.js plugin getting warning with Gradle 5+, incompatible with Gradle 6:
+/* PLUGIN: org.gradlewebtools.minify
 
-   Internal API constructor FactoryNamedDomainObjectContainerConstructor AbstractNamedDomainObjectContainer(Class<T>, Instantiator)
-   has been deprecated. This is scheduled to be removed in Gradle 6.0. Don't use internal API
-
-   see https://github.com/eriwen/gradle-js-plugin/issues/168
+    Minifies JS files, unfortunately cannot be called on file, but on directory. Brings dependence as well, hope it will work for some time.
+    https://github.com/gradle-webtools/gradle-minify-plugin
  */
 plugins {
-    //id "com.eriwen.gradle.js" version "2.14.1"
     id "org.gradlewebtools.minify" version "1.3.0"
 }
 
@@ -282,7 +279,11 @@ task minifyAll(type: MinifyFiles){
     dest = file("${webrootPath}/js")
 }
 
-task clean { doLast { delete fileTree(dir: "${webrootPath}/js", include: '*.min.js') }}
+task clean { doLast {
+    delete fileTree(dir: "${webrootPath}/js", include: '*.min.js')
+    delete fileTree(dir: "${buildDirectory}", include: '*.js')
+}}
+
 task build {
     dependsOn downloadFiles
     dependsOn combineBaseJs
