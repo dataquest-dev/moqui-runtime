@@ -19,6 +19,10 @@ along with this software (see the LICENSE.md file). If not, see
           name="store" displayName="Handling and retrieving simple values from store" version="${moqui_version}" require-authentication="anonymous-view">
 
     <resource name="fetchEntity">
+        <method type="get">
+            <service name="dtq.rockycube.EndpointServices.populate#EntityData"/>
+        </method>
+
         <method type="post">
             <service name="dtq.rockycube.EndpointServices.populate#EntityData"/>
         </method>
