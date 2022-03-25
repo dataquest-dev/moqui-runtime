@@ -12,7 +12,7 @@ You should have received a copy of the CC0 Public Domain Dedication
 along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<entity-facade-xml type="demo">
+<entity-facade-xml type="seed">
     <!-- NOTE 1265184000000 = 2010-02-03 00:00:00 US/Pacific -->
 
     <!-- ========== Test Admin User ========== -->
