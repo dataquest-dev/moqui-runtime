@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- No copyright or license for configuration file, details here are not considered a creative work. -->
+
+<!-- NOTE: for default settings, examples, and comments see the MoquiDefaultConf.xml file at
+    https://github.com/moqui/moqui-framework/blob/master/framework/src/main/resources/MoquiDefaultConf.xml -->
+<moqui-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/moqui-conf-2.1.xsd">
+
+    <!-- Turn off ES by default -->
+    <default-property name="elasticsearch_url" value=""/>
+    <default-property name="elasticsearch_user" value=""/>
+    <default-property name="elasticsearch_password" value=""/>
+    <default-property name="elasticsearch_index_prefix" value=""/>
+
+    <!-- setting up `synchronized-cache-entities` -->
+    <default-property name="synced_entities" value="'moqui.test.TestEntity'"/>
+
+    <tools>
+        <tool-factory class="dtq.synchro.SynchroMasterToolFactory" init-priority="15" disabled="false"/>
+    </tools>
+
+    <cache-list warm-on-start="true" local-factory="MCache" distributed-factory="MCache">
+<!--            <cache name="project.calculations" max-elements="20000" eviction-strategy="least-frequently-used" value-type="ArrayList"/>-->
+<!--            <cache name="test.entity.TestEntity.cache" max-elements="20000" eviction-strategy="least-frequently-used" value-type="ArrayList"/>-->
+    </cache-list>
+
+    <server-stats stats-skip-condition="pathInfo?.startsWith('/rpc') || pathInfo?.startsWith('/rest') || pathInfo?.startsWith('/status')"/>
+
+    <entity-facade>
+        <load-entity location="classpath://entity/TestEntity.eecas.xml"/>
+    </entity-facade>
+</moqui-conf>
