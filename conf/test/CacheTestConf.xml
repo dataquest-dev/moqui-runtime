@@ -27,6 +27,7 @@
     <server-stats stats-skip-condition="pathInfo?.startsWith('/rpc') || pathInfo?.startsWith('/rest') || pathInfo?.startsWith('/status')"/>
 
     <entity-facade>
-        <load-entity location="classpath://entity/TestEntity.eecas.xml"/>
+        <!-- NO NEED TO SETUP THIS WAY-->
+<!--        <load-entity location="classpath://entity/TestEntity.eecas.xml"/>-->
     </entity-facade>
 </moqui-conf>
