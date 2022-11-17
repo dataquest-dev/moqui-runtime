@@ -12,22 +12,13 @@
     <default-property name="elasticsearch_index_prefix" value=""/>
 
     <!-- setting up `synchronized-cache-entities` -->
-    <default-property name="synced_entities" value="'moqui.test.TestEntity'"/>
+    <default-property name="synced_entities" value="'moqui.test.TestEntity','dtq.projects.Project'"/>
 
     <tools>
-        <tool-factory class="dtq.synchro.SynchroMasterToolFactory" init-priority="15" disabled="false"/>
+        <tool-factory class="dtq.synchro.SynchroMasterToolFactory" init-priority="100" disabled="false"/>
     </tools>
-
-    <cache-list warm-on-start="true" local-factory="MCache" distributed-factory="MCache">
-        <!--NOT NECESSARY NEED TO BE ADDRESSED AT THIS PLACE-->
-<!--            <cache name="project.calculations" max-elements="20000" eviction-strategy="least-frequently-used" value-type="ArrayList"/>-->
-<!--            <cache name="test.entity.TestEntity.cache" max-elements="20000" eviction-strategy="least-frequently-used" value-type="ArrayList"/>-->
-    </cache-list>
 
     <server-stats stats-skip-condition="pathInfo?.startsWith('/rpc') || pathInfo?.startsWith('/rest') || pathInfo?.startsWith('/status')"/>
 
-    <entity-facade>
-        <!-- NO NEED TO SETUP THIS WAY-->
-<!--        <load-entity location="classpath://entity/TestEntity.eecas.xml"/>-->
-    </entity-facade>
+    <transaction-facade use-transaction-cache="false"/>
 </moqui-conf>
