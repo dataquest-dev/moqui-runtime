@@ -115,6 +115,7 @@
                 user-dn-template="{0}"
                 search-user-query-filter="dc=aston,dc=sk"
                 search-base-query-filter=""
+                ldap-default-group="Domain Users"
                 user-filter="(&amp;(objectClass=user)(userPrincipalName={principal}))"/>
     </user-facade>
 </moqui-conf>
